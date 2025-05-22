@@ -9,7 +9,7 @@ public class AllAtOnce {
     static int tempCounter = 1;
 
     public static void main(String[] args) {
-        // The V language program – note that text with errors is included.
+        // The V language program 
         String[] program = {
             "BEGIN",                                      // Line 1
             "INTEGER A, B, C, E, M, N, G, H, I, a, c",      // Line 2
@@ -30,7 +30,7 @@ public class AllAtOnce {
             int lineNumber = i + 1;
             System.out.println("Processing line " + lineNumber + ": " + line);
 
-            // Perform error checking per assignment rules.
+            // Perform error checking
             String errorMsg = checkForErrors(line);
             if (errorMsg != null) {
                 System.out.println("Error detected: " + errorMsg);
@@ -296,12 +296,6 @@ public class AllAtOnce {
     }
     
     // ---------------- Stage 5: Code Generation (CG) ----------------
-    // Converts the TAC instructions into pseudo-assembly. For an instruction
-    // "temp = op1 operator op2", it emits:
-    //   LOAD op1
-    //   OPER operator
-    //   LOAD op2
-    //   STORE temp
     public static void codeGeneration(List<String> icr) {
         System.out.println("Generating Code (Assembly)...");
         for (String instr : icr) {
@@ -353,15 +347,22 @@ public class AllAtOnce {
         }
     }
     
-    // Helper: Convert a string into its binary representation (8-bits per character).
+    // Helper: Convert a string into its binary representation.
     public static String stringToBinary(String s) {
-        StringBuilder binary = new StringBuilder();
-        for (char c : s.toCharArray()) {
-            String bin = String.format("%8s", Integer.toBinaryString(c)).replace(' ', '0');
-            binary.append(bin).append(" ");
+    StringBuilder binaryResult = new StringBuilder();
+    String[] words = s.split(" "); // Split into words
+    
+    for (String word : words) {
+        if (!word.isEmpty()) { // Skip empty words
+            char firstChar = word.charAt(0);
+            // Convert first character to 8-bit binary
+            String binary = String.format("%8s", Integer.toBinaryString(firstChar)).replace(' ', '0');
+            binaryResult.append(binary).append(" "); // Add space separator
         }
-        return binary.toString();
     }
+    
+    return binaryResult.toString().trim(); // Remove trailing space
+}
 }
 
 // ---------------- Token Class ----------------
