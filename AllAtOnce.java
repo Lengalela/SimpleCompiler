@@ -89,14 +89,13 @@ public class AllAtOnce {
                     System.out.println("Target Machine Code (Binary):");
                     targetMachineCode();
                 } else {
-                    System.out.println("No errors detected. (This line is not processed through full compilation stages as per the assignment.)");
+                    System.out.println("No errors detected. (This line cannot be processed)");
                 }
             }
             System.out.println(); // Blank line for clarity.
         }
     }
 
-    //
     //Checks a given line for errors based on the assignment rules.
     // Rules include:
     // - Misspelling (e.g. "WRITEE" instead of "WRITE") → Lexical error.
@@ -228,7 +227,7 @@ public class AllAtOnce {
     }
     
     // ---------------- Stage 4: Intermediate Code Representation (ICR) ----------------
-    // Generates three-address code (TAC) by converting the right-hand side (infix) expression
+    // Generates three-address code (TAC) by converting the right-hand side expression
     // to postfix notation and then generating instructions.
     public static List<String> intermediateCode(List<Token> tokens) {
         System.out.println("Generating Intermediate Code Representation...");
@@ -316,15 +315,15 @@ public class AllAtOnce {
                         String op1 = tokens[0].trim();
                         String operator = tokens[1].trim();
                         String op2 = tokens[2].trim();
-                        assemblyCode.add("LOAD " + op1);
+                        assemblyCode.add("LDA " + op1);
                         assemblyCode.add("OPER " + operator);
-                        assemblyCode.add("LOAD " + op2);
-                        assemblyCode.add("STORE " + target);
+                        assemblyCode.add("LDA " + op2);
+                        assemblyCode.add("STR " + target);
                     } else {
-                        assemblyCode.add("STORE " + target + " from " + expr);
+                        assemblyCode.add("STR " + target + " from " + expr);
                     }
                 } else {
-                    assemblyCode.add("MOVE " + expr + " TO " + target);
+                    assemblyCode.add("MOV " + expr + " TO " + target);
                 }
             }
         }
